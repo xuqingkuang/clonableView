@@ -1,0 +1,12 @@
+<div class='control-group'>
+  <div class="subview-container">
+  </div>
+  <div class="extra-buttons">
+    <button type="button" class="btn btn-primary">
+      <i class="icon-plus icon-white"></i>
+    </button>
+    <button type="button" class="btn btn-danger">
+      <i class="icon-minus icon-white"></i>
+    </button>
+  </div>
+</div>
