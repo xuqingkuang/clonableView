@@ -1,6 +1,6 @@
 module.exports = class ClonableView extends Backbone.View
 
-  template: JST["clonable"]
+  template: JST["./clonable"]
   className: 'clonable'
   subviewContainer: '.subview-container'
   extraButtons: '.extra-buttons'
@@ -20,16 +20,28 @@ module.exports = class ClonableView extends Backbone.View
       options['subviewOptions'] = {}
     if not options['allowBlank']?
       options['allowBlank'] = false
-    if options['limit']?
-      options['limit'] = parseInt options['limit']
+    if options['maxNumber']?
+      options['maxNumber'] = parseInt options['maxNumber']
+    if not options['minNumber']?
+      options['minNumber'] = 1
+    else
+      options['minNumber'] = parseInt options['minNumber']
+    if not options['initialNumber']?
+      options['initialNumber'] = 1
     @options = options
 
   render: =>
     @$el.html(@template())
-    
+    index = 0
+    if @options['minNumber'] > @options['initialNumber']
+      number = @options['minNumber']
+    else
+      number = @options['initialNumber']
     # Initial the first subview
     if not @options['allowBlank']
-      @add()
+      while index < number
+        @add()
+        index += 1
     @redrawExtraButtons()
     @
   
@@ -42,11 +54,14 @@ module.exports = class ClonableView extends Backbone.View
     if childrenLength == 1 and @options.allowBlank
       @$('.extra-buttons .btn-primary').prop('disabled', false);
       conditionAvailabel = true
-    if @options.allowBlank and @$el.find(@subviewContainer).children().length != 0
+    if @options['allowBlank'] and @$el.find(@subviewContainer).children().length != 0
       @$('.extra-buttons .btn-danger').prop('disabled', false)
       conditionAvailabel = true
-    if @options.limit and childrenLength == @options.limit
+    if @options['maxNumber'] and childrenLength == @options.maxNumber
       @$('.extra-buttons .btn-primary').prop('disabled', true)
+      conditionAvailabel = true
+    if childrenLength == @options['minNumber']
+      @$('.extra-buttons .btn-danger').prop('disabled', true)
       conditionAvailabel = true
     if conditionAvailabel
       return
@@ -78,7 +93,8 @@ module.exports = class ClonableView extends Backbone.View
     if evt.target
       $el = $(evt.target)
     else
-      $el = @$('.extra-buttons:last .btn-danger') # 假设最后一个删除按钮
+      # Assume the latest delete button
+      $el = @$('.extra-buttons:last .btn-danger')
     @undelegateEvents()
     if @options.allowBlank and @$el.children().length == 1
       el = $el.parents('.control-group').find(@subviewContainer).children()
@@ -91,6 +107,10 @@ module.exports = class ClonableView extends Backbone.View
     @delegateEvents()
 
   clear: =>
+    # Limit to only one child.
+    child = $(@$('.control-group')[0]).clone()
+    @$el.html(child)
+    # Empty the child.
     @$('.control-group').find(@subviewContainer).empty()
 
   setOptions: (options) =>
