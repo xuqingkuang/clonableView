@@ -3,7 +3,7 @@
  *
  * Options:
  *   allowBlank [Boolean]: 是否允许为空
- *   limit [Integer]: 数量限制
+ *   maxNumber [Integer]: 数量限制
  *   preAdd [Function]: 添加前回调
  *   postAdded [Function]: 添加后回调
  *   preRemove [Function]: 删除前回调
@@ -49,8 +49,8 @@ ClonableView.prototype.initialize = function(options) {
   if (options['allowBlank'] == null) {
     options['allowBlank'] = false;
   }
-  if (options['limit'] != null) {
-    options['limit'] = parseInt(options['limit']);
+  if (options['maxNumber'] != null) {
+    options['maxNumber'] = parseInt(options['maxNumber']);
   }
   this.options = options;
 };
@@ -83,7 +83,7 @@ ClonableView.prototype.redrawExtraButtons = function(evt) {
     this.$el.find('.extra-buttons .btn-danger').prop('disabled', false);
     conditionAvailabel = true;
   }
-  if (this.options.limit && childrenLength === this.options.limit) {
+  if (this.options.maxNumber && childrenLength === this.options.maxNumber) {
     this.$el.find('.extra-buttons .btn-primary').prop('disabled', true);
     conditionAvailabel = true;
   }
