@@ -59,7 +59,7 @@ ClonableView.prototype.render = function() {
   $item = this.$template.clone().appendTo(this.$el);
   if (!this.options['allowBlank']) {
     this.applyEvent('preAdd');
-    this.$html.appendTo($item.find(this.htmlContainer));
+    this.$html.clone().appendTo($item.find(this.htmlContainer));
     this.delegateEvents();
     this.applyEvent('postAdded');
   }
@@ -96,7 +96,7 @@ ClonableView.prototype.redrawExtraButtons = function(evt) {
 };
 
 ClonableView.prototype.add = function(evt) {
-  var $container, $el, rendered, html;
+  var $container, $el, rendered, $html;
   if (evt == null) {
     evt = {};
   }
@@ -112,11 +112,11 @@ ClonableView.prototype.add = function(evt) {
   }
   this.undelegateEvents();
   this.applyEvent('preAdd');
-  this.$html.clone().appendTo($container.find(this.htmlContainer));
+  $html = this.$html.clone().appendTo($container.find(this.htmlContainer));
   this.redrawExtraButtons();
   this.delegateEvents();
   this.applyEvent('postAdded');
-  return html;
+  return $html;
 };
 
 ClonableView.prototype.remove = function(evt) {
