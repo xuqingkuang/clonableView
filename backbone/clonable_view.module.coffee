@@ -108,7 +108,7 @@ module.exports = class ClonableView extends Backbone.View
 
   clear: =>
     # Limit to only one child.
-    child = $(@$('.control-group')[0]).clone()
+    child = @$('.control-group:first').clone()
     @$el.html(child)
     # Empty the child.
     @$('.control-group').find(@subviewContainer).empty()
