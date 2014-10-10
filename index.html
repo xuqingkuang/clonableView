@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Clonableview by xuqingkuang</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Clonableview</h1>
+        <p>一个 Javascript/Backbone 类库，为 Sub view 添加“添加”和“删除”按钮，可以克隆 Sub view。</p>
+
+        <p class="view"><a href="https://github.com/xuqingkuang/clonableView">View the Project on GitHub <small>xuqingkuang/clonableView</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/xuqingkuang/clonableView/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/xuqingkuang/clonableView/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/xuqingkuang/clonableView">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="clonableview" class="anchor" href="#clonableview"><span class="octicon octicon-link"></span></a>clonableView</h1>
+
+<p>在 Web 开发过程中，经常会碰到需要为某个 Widget 增加一个克隆的按钮，可以复制某个表格的字段，本类库可以帮助到您。</p>
+
+<p>本类库提供了 Backbone 和 Javascript 两个版本，Javascript 版本是通过 Backbone 版本翻译过来，在使用方法上是非常类同的。</p>
+
+<p>本类库仅提供了克隆渲染功能，表单的处理依然需要开发者自己实现。</p>
+
+<p>本类库遵循 MIT 协议，随意修改使用，无需告知作者。</p>
+
+<h2>
+<a name="%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95" class="anchor" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="octicon octicon-link"></span></a>使用方法</h2>
+
+<p>以 Javascript 版本为例，其中提供了 test.html 供测试使用，Backbone 版本的使用方法是完全一致的。</p>
+
+<pre><code>var clonableView = new ClonableView({
+    $html: $($('textarea[name="html"]').val()),
+    allowBlank: $('input[name="allowBlank"]').prop('checked'),
+    limit: $('select[name="limit"]').val()
+});
+clonableView.render().$el.appendTo($container);
+</code></pre>
+
+<h2>
+<a name="backbone-%E7%89%88%E8%AF%B4%E6%98%8E" class="anchor" href="#backbone-%E7%89%88%E8%AF%B4%E6%98%8E"><span class="octicon octicon-link"></span></a>Backbone 版说明</h2>
+
+<p>参数:</p>
+
+<ul>
+<li>subviewClass [CLASS] - 需要克隆的子 View 的类</li>
+<li>subviewOptions [OBJECT] - 子 View 参数</li>
+<li>allowBlank [BOOLEAN] - 是否允许为空值</li>
+<li>limit [INTEGER] - 克隆的数量限制</li>
+</ul>
+
+<p>事件：</p>
+
+<ul>
+<li>subviewPreAdd: 子 View 添加前的事件</li>
+<li>subviewPostAdded: 子 View 添加后的事件</li>
+<li>subviewPreRemoved: 子 View 删除前的事件</li>
+<li>subviewPostRemoved:  子 View 删除后的事件</li>
+</ul>
+
+<h2>
+<a name="javascript-%E7%89%88%E8%AF%B4%E6%98%8E" class="anchor" href="#javascript-%E7%89%88%E8%AF%B4%E6%98%8E"><span class="octicon octicon-link"></span></a>Javascript 版说明</h2>
+
+<p>参数：</p>
+
+<ul>
+<li>$html: [jQuery OBJECT]: 需要克隆的 jQuery 对象</li>
+<li>allowBlank [BOOLEAN] - 是否允许为空值</li>
+<li>limit [INTEGER] - 克隆的数量限制</li>
+<li>preAdd [FUNCTION]: 添加前回调</li>
+<li>postAdded [FUNCTION]: 添加后回调</li>
+<li>preRemove [FUNCTION]: 删除前回调</li>
+<li>postRemoved [FUNCTION]: 删除后回调</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/xuqingkuang">xuqingkuang</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
